@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('SCM CHECKOUT') {
             steps {
-               git branch: 'main', url: 'https://github.com/VM2322/Vivek-s-Gaming-Application'
+               git branch: 'main', url: 'https://github.com/salmanfarsi48863-cloud/Vivek-s-Gaming-Application'
             }
         }
     
@@ -61,7 +61,7 @@ pipeline {
             steps {
                script {
                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                            sh "docker build -t vm2322/gaming:latest ."
+                            sh "docker build -t salmanfarsi48863/gaming:latest ."
                     }
                }
             }
@@ -69,13 +69,13 @@ pipeline {
     
              stage('IMAGE SCANNING') {
             steps {
-                sh "trivy image --format table -o trivy-image-report.html vm2322/gaming:latest "
+                sh "trivy image --format table -o trivy-image-report.html salmanfarsi48863/gaming:latest "
             }
         }   
             
         stage('DOCKER DEPLOY') {
             steps {
-                sh "docker run -d -p 8090:8080 vm2322/gaming:latest"
+                sh "docker run -d -p 8090:8080 salmanfarsi48863/gaming:latest"
             }
         }   
     }
